@@ -33,6 +33,7 @@ export const Header = () => {
                 <Image
                   src={sessionData?.user?.image ?? ""}
                   alt={sessionData?.user?.name ?? ""}
+                  width={40}
                 />
               </div>
             </label>
