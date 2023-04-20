@@ -34,6 +34,7 @@ export const Header = () => {
                   src={sessionData?.user?.image ?? ""}
                   alt={sessionData?.user?.name ?? ""}
                   width={40}
+                  height={40}
                 />
               </div>
             </label>
