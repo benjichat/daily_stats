@@ -10,7 +10,7 @@ export const MetricsForm = () => {
 
   // const [selectedTopic, setSelectedTopic] = useState<Metric | null>(null);
 
-  const [newMetric, setNewMetric] = useState<Metric | null>(null);
+  const [newMetric, setNewMetric] = useState<string | null>(null);
 
   const { data: metrics, refetch: refetchMetrics } = api.metrics.getAll.useQuery(
     undefined, // no input
