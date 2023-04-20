@@ -79,9 +79,10 @@ model Metric {
 model DailyStat {
   id       Int      @id @default(autoincrement())
   date     DateTime
-  value    Float
+  value    Int
   metricId Int
   metric   Metric   @relation(fields: [metricId], references: [id])
 
   @@index([metricId])
+  @@unique([date, metricId])
 }

@@ -17,7 +17,7 @@ export const MetricsForm = () => {
 
   const [newMetric, setNewMetric] = useState<Metric | null>(null);
 
-  const { data: metrics, refetch: refetchTopics } = api.metrics.getAll.useQuery(
+  const { data: metrics, refetch: refetchMetrics } = api.metrics.getAll.useQuery(
     undefined, // no input
     {
       enabled: sessionData?.user !== undefined,
@@ -29,7 +29,7 @@ export const MetricsForm = () => {
 
   const createMetric = api.metrics.create.useMutation({
     onSuccess: () => {
-      void refetchTopics();
+      void refetchMetrics();
     },
   });
 
@@ -57,7 +57,7 @@ export const MetricsForm = () => {
                 <form className="space-y-4">
                   <input
                     type="text"
-                    placeholder="New Topic"
+                    placeholder="New Metric"
                     className="input-bordered input input-sm w-full"
                     onChange={(e) => {
                       setNewMetric(e.currentTarget.value);

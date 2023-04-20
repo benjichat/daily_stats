@@ -16,13 +16,8 @@ export const Header = () => {
         </Link>
       </div>
       <div className="flex-1 pl-5 text-3xl font-bold">
-        <Link href="/report">
-          Report
-        </Link>
-      </div>
-      <div className="flex-1 pl-5 text-3xl font-bold">
-        <Link href="/view">
-          View
+        <Link href="/stats">
+          Stats
         </Link>
       </div>
       <div className="flex-none gap-2">
