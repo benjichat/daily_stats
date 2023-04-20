@@ -2,11 +2,6 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { api, type RouterOutputs } from "../utils/api";
 
-
-interface Props {
-  // Define any props needed for your component
-}
-
 type Metric = RouterOutputs["metrics"]["getAll"][0];
 
 export const MetricsForm = () => {

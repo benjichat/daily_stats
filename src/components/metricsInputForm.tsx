@@ -1,15 +1,12 @@
 import { useSession } from "next-auth/react";
 import { useState } from "react";
-import { api, type RouterOutputs } from "../utils/api";
+import { api } from "../utils/api";
 import { FaBeer } from 'react-icons/fa';
 
 
 interface MetricsInputFormProps {
   searchDate: Date
 }
-
-type Metric = RouterOutputs["metrics"]["getAll"][0];
-type DailyStat = RouterOutputs["stats"]["getDay"][0];
 
 type IndividualStat = {
   id?: number;
@@ -29,7 +26,7 @@ export const MetricsInputForm: React.FC<MetricsInputFormProps> = ({ searchDate }
 
   const [updateStats, setUpdateStats] = useState<StatsDict>({});
 
-  const { data: stats, refetch: refetchStats } = api.stats.getDay.useQuery(
+  const { refetch: refetchStats } = api.stats.getDay.useQuery(
     { date: searchDate }, // no input
     {
       enabled: sessionData?.user !== undefined,
@@ -48,7 +45,7 @@ export const MetricsInputForm: React.FC<MetricsInputFormProps> = ({ searchDate }
   console.log(updateStats[2]?.value, "updateStats");
 
 
-  const { data: metrics, refetch: refetchMetrics } = api.metrics.getAll.useQuery(
+  const { data: metrics } = api.metrics.getAll.useQuery(
     undefined, // no input
     {
       enabled: sessionData?.user !== undefined,

@@ -1,18 +1,15 @@
+// next
 import { type NextPage } from "next";
 import { useState } from "react";
 import Head from "next/head";
-import { signIn, signOut, useSession } from "next-auth/react";
 
-import { api } from "@/utils/api";
-
+// components
 import { Header } from "@/components/header";
 import { MetricsInputForm } from "@/components/metricsInputForm";
 import { DateBar } from "@/components/dateBar";
 import { MetricsChart } from "@/components/metricsChart";
 
 const Metrics: NextPage = () => {
-  // const hello = api.example.hello.useQuery({ text: "from tRPC" });
-  // const { data: sessionData } = useSession();
 
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 

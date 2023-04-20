@@ -5,9 +5,11 @@ import {
   protectedProcedure,
 } from "@/server/api/trpc";
 
+import { type Metric } from '@prisma/client';
+
 export const metricsRouter = createTRPCRouter({
   getAll: protectedProcedure
-  .query(({ ctx }) => {
+  .query<Metric[]>(({ ctx }) => {
     // help me fix the metric error here
     return ctx.prisma.metric.findMany({
       where: {
@@ -18,7 +20,7 @@ export const metricsRouter = createTRPCRouter({
 
   create: protectedProcedure
   .input(z.object({ name: z.string() }))
-  .mutation(({ ctx, input }) => {
+  .mutation<Metric>(({ ctx, input }) => {
     return ctx.prisma.metric.create({
       data: {
         name: input.name,

@@ -5,10 +5,12 @@ import {
   protectedProcedure,
 } from "@/server/api/trpc";
 
+import { type DailyStat } from '@prisma/client';
+
 export const statsRouter = createTRPCRouter({
 
   getAll: protectedProcedure
-  .query(({ ctx }) => {
+  .query<DailyStat[]>(({ ctx }) => {
     return ctx.prisma.dailyStat.findMany({
       where: {
         metric: {
@@ -23,7 +25,7 @@ export const statsRouter = createTRPCRouter({
 
   getDay: protectedProcedure
   .input(z.object({ date: z.date() }))
-  .query( async ({ ctx, input }) => {
+  .query<DailyStat[]>( async ({ ctx, input }) => {
     const { date } = input;
 
     // Step 1: Create two new Date objects for the start and end of the input day
@@ -58,7 +60,7 @@ export const statsRouter = createTRPCRouter({
 
   create: protectedProcedure
   .input(z.object({ date: z.date(), value: z.number(), metricId: z.number() }))
-  .mutation(async ({ ctx, input }) => {
+  .mutation<DailyStat>(async ({ ctx, input }) => {
     return ctx.prisma.dailyStat.upsert({
       where: {
         date_metricId: {
