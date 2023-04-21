@@ -1,11 +1,16 @@
-import { useSession } from "next-auth/react";
-import { useState } from "react";
-import { api } from "../utils/api";
+//types
+import { type Metric } from '@prisma/client';
+
+// utils
 import { FaBeer } from 'react-icons/fa';
 
 
 interface MetricsInputFormProps {
-  searchDate: Date
+  metricsData: Metric[] | [];
+  statsData: StatsDict;
+  searchDate: Date;
+  onCreateStat: (data: { date: Date; metricId: number; value: number }) => void;
+  setUpdateStats: (stats: StatsDict) => void;
 }
 
 type IndividualStat = {
@@ -20,46 +25,7 @@ interface StatsDict {
 }
 
 
-export const MetricsInputForm: React.FC<MetricsInputFormProps> = ({ searchDate }) => {
-
-  const { data: sessionData } = useSession();
-
-  const [updateStats, setUpdateStats] = useState<StatsDict>({});
-
-  const { refetch: refetchStats } = api.stats.getDay.useQuery(
-    { date: searchDate }, // no input
-    {
-      enabled: sessionData?.user !== undefined,
-      onSuccess: (data) => {
-        console.log(data, "data");
-        const d = data.reduce<StatsDict>((acc, item) => {
-          acc[item.metricId] = item; // <-- Use 'acc' instead of 'data'
-          return acc;
-        }, {});
-        console.log(d, "data refined");
-        setUpdateStats(d ?? {});
-      },
-    }
-  );
-
-  console.log(updateStats[2]?.value, "updateStats");
-
-
-  const { data: metrics } = api.metrics.getAll.useQuery(
-    undefined, // no input
-    {
-      enabled: sessionData?.user !== undefined,
-      // onSuccess: (data) => {
-      //   setSelectedTopic(selectedTopic ?? data[0] ?? null);
-      // },
-    }
-  );
-
-  const createStat = api.stats.create.useMutation({
-    onSuccess: () => {
-      void refetchStats();
-    },
-  });
+export const MetricsInputForm: React.FC<MetricsInputFormProps> = ({ metricsData, statsData, searchDate, onCreateStat, setUpdateStats }) => {
 
   return (
     <table className="w-full">
@@ -74,7 +40,7 @@ export const MetricsInputForm: React.FC<MetricsInputFormProps> = ({ searchDate }
         </tr>
       </thead>
       <tbody>
-        {metrics?.map((metric, index) => (
+        {metricsData?.map((metric, index) => (
           <tr key={metric.id}>
             <td className="w-1/4 px-4 py-3 text-left">{index}</td>
             <td className="w-2/4 px-4 py-3 text-center">{metric.name}</td>
@@ -82,12 +48,12 @@ export const MetricsInputForm: React.FC<MetricsInputFormProps> = ({ searchDate }
               <input
                 type="number"
                 className="input-bordered input input-sm w-full"
-                value={updateStats[metric.id]?.value || 0}
+                value={statsData[metric.id]?.value || 0}
                 onChange={(e) => {
                   setUpdateStats({
-                    ...updateStats,
+                    ...statsData,
                     [metric.id]: {
-                      ...(updateStats[metric.id]),
+                      ...(statsData[metric.id]),
                       value: parseInt(e.currentTarget.value, 10),
                     },
                   });
@@ -99,10 +65,10 @@ export const MetricsInputForm: React.FC<MetricsInputFormProps> = ({ searchDate }
                 type="submit"
                 className="bg-blue-600 text-white px-4 py-2 rounded"
                 onClick={() => {
-                  createStat.mutate({
+                  onCreateStat({
                     date: searchDate,
                     metricId: metric.id,
-                    value: updateStats[metric.id]?.value || 0,
+                    value: statsData[metric.id]?.value || 0,
                   });
                 }}
               >

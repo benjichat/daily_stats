@@ -1,8 +1,6 @@
 import { useSession } from "next-auth/react";
 import { useState } from "react";
-import { api, type RouterOutputs } from "../utils/api";
-
-type Metric = RouterOutputs["metrics"]["getAll"][0];
+import { api } from "../utils/api";
 
 export const MetricsForm = () => {
 

@@ -1,30 +1,25 @@
 import { ResponsiveRadar } from '@nivo/radar'
 
+interface MetricsChartProps {
+  mydata: {
+    metric: string;
+    dailystat: number;
+  }[] | [];
+}
 
-export const MetricsChart = () => {
+export const MetricsChart: React.FC<MetricsChartProps> = ({mydata}) => {
 
-  const mydata = [
-    {
-      "taste": "Health",
-      "chardonay": 36,
-    },
-    {
-      "taste": "Family",
-      "chardonay": 45,
-    },
-    {
-      "taste": "Sleep",
-      "chardonay": 95,
-    }
-  ]
+  if (mydata.length === 0) {
+    return <p>Loading chart...</p>;
+  }
 
   return (
 
     <ResponsiveRadar
       data={mydata}
-      keys={['chardonay']}
-      indexBy="taste"
-      valueFormat=">-.2f"
+      keys={['dailystat']}
+      indexBy="metric"
+      valueFormat=".0f"
       margin={{ top: 70, right: 80, bottom: 40, left: 80 }}
       borderColor={{ from: 'color' }}
       gridLabelOffset={36}
