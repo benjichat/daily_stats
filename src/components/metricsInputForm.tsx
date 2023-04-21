@@ -29,22 +29,11 @@ export const MetricsInputForm: React.FC<MetricsInputFormProps> = ({ metricsData,
 
   return (
     <table className="w-full">
-      {/* Table header */}
-      <thead>
-        <tr>
-          {/* Add table headers as needed */}
-          <th className="w-1/4 px-4 py-3 text-left">#</th>
-          <th className="w-2/4 px-4 py-3">Name</th>
-          <th className="w-1/4 px-4 py-3">?</th>
-          <th></th>
-        </tr>
-      </thead>
       <tbody>
-        {metricsData?.map((metric, index) => (
+        {metricsData?.map((metric) => (
           <tr key={metric.id}>
-            <td className="w-1/4 px-4 py-3 text-left">{index}</td>
             <td className="w-2/4 px-4 py-3 text-center">{metric.name}</td>
-            <td className="w-1/4 px-4 py-3">
+            <td className="w-2/4 px-4 py-3">
               <input
                 type="number"
                 className="input-bordered input input-sm w-full"
@@ -56,6 +45,11 @@ export const MetricsInputForm: React.FC<MetricsInputFormProps> = ({ metricsData,
                       ...(statsData[metric.id]),
                       value: parseInt(e.currentTarget.value, 10),
                     },
+                  });
+                  onCreateStat({
+                    date: searchDate,
+                    metricId: metric.id,
+                    value: parseInt(e.currentTarget.value, 10),
                   });
                 }}
               />

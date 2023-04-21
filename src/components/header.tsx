@@ -9,16 +9,16 @@ export const Header = () => {
   return (
     <div className="navbar bg-primary text-primary-content">
       <div className="flex-1 pl-5 text-3xl font-bold">
-        {sessionData?.user?.name ? `Notes for ${sessionData.user.name}` : ""}
+        DailyStat
       </div>
-      <div className="flex-1 pl-5 text-3xl font-bold">
+      <div className="flex-end pl-5 text-3 font-bold">
         <Link href="/metrics">
-          My Metrics
+          Metric Settings
         </Link>
       </div>
-      <div className="flex-1 pl-5 text-3xl font-bold">
+      <div className="flex-end pl-5 text-3 font-bold">
         <Link href="/stats">
-          Stats
+          Update Metrics
         </Link>
       </div>
       <div className="flex-none gap-2">

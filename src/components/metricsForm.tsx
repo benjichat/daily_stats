@@ -34,14 +34,12 @@ export const MetricsForm = () => {
           <thead>
             <tr>
               {/* Add table headers as needed */}
-              <th className="w-1/4 px-4 py-3 text-left">#</th>
               <th className="w-3/4 px-4 py-3">Name</th>
             </tr>
           </thead>
           <tbody>
-            {metrics?.map((metric, index) => (
+            {metrics?.map((metric) => (
               <tr key={metric.id}>
-                <td className="w-1/4 px-4 py-3 text-left">{index}</td>
                 <td className="w-3/4 px-4 py-3 text-center">{metric.name}</td>
               </tr>
             ))}

@@ -53,7 +53,6 @@ export const statsRouter = createTRPCRouter({
         ],
       },
     });
-    console.log(result, "result in server call")
     return result;
   }),
 

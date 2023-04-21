@@ -1,3 +1,4 @@
+// utils
 import { ResponsiveRadar } from '@nivo/radar'
 
 interface MetricsChartProps {
@@ -7,7 +8,7 @@ interface MetricsChartProps {
   }[] | [];
 }
 
-export const MetricsChart: React.FC<MetricsChartProps> = ({mydata}) => {
+export const MetricsChart: React.FC<MetricsChartProps> = ({ mydata }) => {
 
   if (mydata.length === 0) {
     return <p>Loading chart...</p>;
@@ -20,7 +21,12 @@ export const MetricsChart: React.FC<MetricsChartProps> = ({mydata}) => {
       keys={['dailystat']}
       indexBy="metric"
       valueFormat=".0f"
-      margin={{ top: 70, right: 80, bottom: 40, left: 80 }}
+      margin={{
+        top: 40,
+        right: 80,
+        bottom: 40,
+        left: 80,
+      }}
       borderColor={{ from: 'color' }}
       gridLabelOffset={36}
       dotSize={10}

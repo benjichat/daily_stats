@@ -77,25 +77,25 @@ const Metrics: NextPage = () => {
       <main>
         <Header />
         <div className="min-h-screen bg-gray-100 flex flex-row items-center justify-center">
-          <div className="w-1/2 max-w-xl bg-white shadow-md p-6 rounded-lg">
-            <DateBar onDateChange={handleDateChange} />
-            <MetricsInputForm
-              metricsData={metrics ?? []}
-              statsData={updateStats}
-              searchDate={selectedDate}
-              onCreateStat={(data) => createStat.mutate(data)}
-              setUpdateStats={setUpdateStats}
-            />
-
-          </div>
-          <div className="h-[50vh] w-1/2">
-            <MetricsChart
-              mydata={mappedData ?? []}
-            />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full md:max-w-5xl px-4 py-6">
+            <div className="bg-white shadow-md p-6 rounded-lg">
+              <DateBar onDateChange={handleDateChange} />
+              <MetricsInputForm
+                metricsData={metrics ?? []}
+                statsData={updateStats}
+                searchDate={selectedDate}
+                onCreateStat={(data) => createStat.mutate(data)}
+                setUpdateStats={setUpdateStats}
+              />
+            </div>
+            <div className="bg-white shadow-md p-6 rounded-lg">
+              <MetricsChart mydata={mappedData ?? []} />
+            </div>
           </div>
         </div>
       </main>
     </>
+
   );
 };
 
