@@ -11,16 +11,17 @@ export const Header = () => {
       <div className="flex-1 pl-5 text-3xl font-bold">
         DailyStat
       </div>
-      <div className="flex-end pl-5 text-3 font-bold">
-        <Link href="/metrics">
-          Metric Settings
-        </Link>
-      </div>
-      <div className="flex-end pl-5 text-3 font-bold">
-        <Link href="/stats">
-          Update Metrics
-        </Link>
-      </div>
+      {sessionData?.user && (
+      <><div className="flex-end pl-5 text-3 font-bold">
+          <Link href="/metrics">
+            Metric Settings
+          </Link>
+        </div><div className="flex-end pl-5 text-3 font-bold">
+            <Link href="/stats">
+              Update Metrics
+            </Link>
+          </div></>
+      )}
       <div className="flex-none gap-2">
         <div className="dropdown-end dropdown">
           {sessionData?.user ? (
