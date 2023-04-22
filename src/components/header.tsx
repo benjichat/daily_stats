@@ -17,7 +17,7 @@ export const Header = () => {
             Metric Settings
           </Link>
         </div><div className="flex-end pl-5 text-3 font-bold">
-            <Link href="/stats">
+            <Link href="/">
               Update Metrics
             </Link>
           </div></>
